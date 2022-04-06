@@ -1,3 +1,23 @@
+<?php
+ 
+ $conn = mysqli_connect ("localhost","root","","db_connect");
+if(isset($_GET['btnclick'])){
+
+  $id = $_GET['id'];
+
+  $query = "delete from tbl_contact where id = '$id'";
+
+  $runQ = mysqli_query($conn , $query);
+  if($runQ){
+    $message = "User ".$id."Deleted";
+	header('location:adminPannel.php?message='.$message);
+	die();
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,18 +45,18 @@
      <th>Name</th>
      <th>Email</th>
      <th> phone </th>
+     <th>edit</th>
      
     </tr>
 
     <?php 
-  
-  $conn = mysqli_connect ("localhost","root","","db_connect");
+ 
   $query = "select *from tbl_contact ";
 
   $runQ = mysqli_query($conn, $query);
   while ($row = mysqli_fetch_assoc($runQ)) {}?>
 
-<?php $conn = mysqli_connect ("localhost","root","","db_connect");
+<?php
   $query = "select *from tbl_contact ";
 
   $runQ = mysqli_query($conn, $query);
@@ -45,7 +65,8 @@
 <td><?php echo $row['id'] ?></td>
 <td><?php echo $row['fidName'] ?></td> 
 <td><?php echo $row['fidEmail'] ?></td>   
-<td><?php echo $row['fidPhone'] ?></td>  
+<td><?php echo $row['fidPhone'] ?></td> 
+<td><a href='adminPannel.php?btnclick=updateQuery&&id=<?php echo $row['id'];?>'> ^ </a></td>
 
 </tr>
 
