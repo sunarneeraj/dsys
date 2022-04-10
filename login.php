@@ -29,7 +29,7 @@
 
     <p>&nbsp;</p>
     <p>
-      <input type="submit" name="btn_login" onclick="valid()" id="Submit" value="Click me to Contact"  class="btn btn-primary btn-lg btn-block">
+      <input type="submit" name="btn_login" onclick="valid()" id="Submit" value="Log in "  class="btn btn-primary btn-lg btn-block">
     </p>
   </form>
 </fieldset>

@@ -1,24 +1,27 @@
 <?php
  
  $conn = mysqli_connect ("localhost","root","","db_connect");
-if(isset($_GET['btnclick'])){
 
-  $id = $_GET['id'];
+if(isset($_POST['btn_update'])){
+  $id= $_POST['rowid'];
 
-  $query = "delete from tbl_contact where id = '$id'";
+  $fname = $_POST['fidName'];
+  $email = $_POST['fidEmail'];
+  $phone = $_POST['fidPhone'];
+  $message = $_POST['fidMessage'];
 
-  $runQ = mysqli_query($conn , $query);
-  if($runQ){
-    $message = "User ".$id."Deleted";
-	header('location:adminPannel.php?message='.$message);
+
+
+  $query= "update tbl_contact set fidName ='$fname', fidEmail= '$email' , fidPhone= '$phone', fidMessage = '$message' where id= '$id'";
+  $executeQ = mysqli_query($conn,$query);
+
+  if($executeQ){
+ 
+    $message = "Updated";
+	header('location:adminPannel.php?message='.$message.'&&id='.$id);
 	die();
   }
 
-}
-if(isset($_GET['dbtnclick'])){
-  $id= $_GET['id'];
-
-  $query= " ";
 }
 
 ?>
@@ -41,7 +44,7 @@ if(isset($_GET['dbtnclick'])){
       </div>
 <fieldset>
   
-  <form name="frmContact" class="needs-validation " method="POST" action="action.php?action=login_check">
+  <form name="frmContact" class="needs-validation " method="POST" action="editp.php">
    
 
  <table border="1">
@@ -50,31 +53,25 @@ if(isset($_GET['dbtnclick'])){
      <th>Name</th>
      <th>Email</th>
      <th> phone </th>
-     <th>message</th>
-     <th>edit</th><th>delete</th>
+     <th>Order</th>
+   
      
     </tr>
 
-    <?php 
- 
-  $query = "select *from tbl_contact ";
-
-  $runQ = mysqli_query($conn, $query);
-  while ($row = mysqli_fetch_assoc($runQ)) {}?>
-
+  
 <?php
-  $query = "select *from tbl_contact ";
-
+   $rid = $_GET['id'];
+   $query = "select *from tbl_contact where  id = '$rid' ";
   $runQ = mysqli_query($conn, $query);
   while ($row = mysqli_fetch_assoc($runQ))  { ?>
 <tr>
-<td><?php echo $row['id'] ?></td>
-<td><?php echo $row['fidName'] ?></td> 
-<td><?php echo $row['fidEmail'] ?></td>   
-<td><?php echo $row['fidPhone'] ?></td> 
-<td><?php echo $row['fidMessage'] ?></td> 
-<td><a href='editp.php?dbtnclick=updateQuery&&id=<?php echo $row['id'];?>'> ^ </a></td>
-<td><a href='adminPannel.php?btnclick=updateQuery&&id=<?php echo $row['id'];?>'> ^ </a></td>
+<td><input type="number" name="rowid" value="<?php echo $row['id'] ?>"></td>
+<td><input type="text" name="fidName" value="<?php echo $row['fidName'] ?>"></td>
+<td><input type="text" name="fidEmail" value="<?php echo $row['fidEmail'] ?>"></td>
+<td><input type="number" name="fidPhone" value="<?php echo $row['fidPhone'] ?>"></td>
+<td><input type="text" name="fidMessage" value="<?php echo $row['fidMessage'] ?>"></td>
+<td><input type="submit" name="btn_update" value="update"></td>
+
 
 </tr>
 
