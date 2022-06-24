@@ -5,11 +5,11 @@ if(isset($_GET['btnclick'])){
 
   $id = $_GET['id'];
 
-  $query = "delete from tbl_contact where id = '$id'";
+  $query = "delete from order_details where order_id = '$id'";
 
   $runQ = mysqli_query($conn , $query);
   if($runQ){
-    $message = "User ".$id."Deleted";
+    $message = "order_id ".$id."Deleted";
 	header('location:adminPannel.php?message='.$message);
 	die();
   }
@@ -23,74 +23,103 @@ if(isset($_GET['dbtnclick'])){
 
 ?>
 
-<!DOCTYPE html>
+
+
+
+<!doctype html>
 <html lang="en">
-<head>
-<title> first attempt </title>
-<link href="style.css"rel="stylesheet">
-</head><br><br>
-<h1> <marquee>Title  </marquee> </h1>
-<h2> Welcome to Dashboard </h2>
-<body class="bg-light">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>index</title>
 
-<div class="container">
-<div class="py-5 text-center">
-       
-        <h2> welcome to Admin pannel </h2>
-        <p class="lead" id="flash"><b> <u> <?php if(isset($_GET['message'])){echo $_GET['message'];} if(isset($_GET['error'])){echo $_GET['error'];} ?></u></b></p>
-      </div>
-<fieldset>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
   
-  <form name="frmContact" class="needs-validation " method="POST" action="action.php?action=login_check">
-   
+  </head>
+  <body >
+      <div class="container">
+<h1 align="center" style="font-family:mono space; color:purple"> Welcome to Admin Pannel<h1>
+      <ol class="breadcrumb">
+  <li><a href="index.php">Home</a></li>
 
- <table border="1">
-     <tr>
-     <th>ID</th>
-     <th>Name</th>
-     <th>Email</th>
-     <th> phone </th>
-     <th>message</th>
-     <th>edit</th><th>delete</th>
-     
-    </tr>
-
-    <?php 
+  <li><a href="login.php">logout</a></li>
+</ol>
+      
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+  <div class="py-5 text-center">
+       
+       <p class="lead" id="flash"><b> <u> <?php if(isset($_GET['message'])){echo $_GET['message'];} if(isset($_GET['error'])){echo $_GET['error'];} ?></u></b></p>
+     </div>
+<fieldset>
  
-  $query = "select *from tbl_contact ";
+ <form name="frmContact" class="needs-validation " method="POST" action="action.php?action=login_check">
+  
 
-  $runQ = mysqli_query($conn, $query);
-  while ($row = mysqli_fetch_assoc($runQ)) {}?>
+<table class="table table-border" style="font-size:18px;">
+    <tr>
+    <th>order_id</th>
+    <th>Order Name</th>
+    <th>order Status</th>
+    <th> order Date </th>
+    <th>user id </th>
+    <th>Phone No</th>
+    <th>Address</th>
+    <th>edit</th><th>delete</th>
+    
+   </tr>
+
+   <?php 
+
+ $query = "select *from tbl_contact ";
+
+ $runQ = mysqli_query($conn, $query);
+ while ($row = mysqli_fetch_assoc($runQ)) {}?>
 
 <?php
-  $query = "select *from tbl_contact ";
+ $query = "select *from order_details ";
 
-  $runQ = mysqli_query($conn, $query);
-  while ($row = mysqli_fetch_assoc($runQ))  { ?>
+ $runQ = mysqli_query($conn, $query);
+ while ($row = mysqli_fetch_assoc($runQ))  { ?>
 <tr>
-<td><?php echo $row['id'] ?></td>
-<td><?php echo $row['fidName'] ?></td> 
-<td><?php echo $row['fidEmail'] ?></td>   
-<td><?php echo $row['fidPhone'] ?></td> 
-<td><?php echo $row['fidMessage'] ?></td> 
-<td><a href='editp.php?dbtnclick=updateQuery&&id=<?php echo $row['id'];?>'> ^ </a></td>
-<td><a href='adminPannel.php?btnclick=updateQuery&&id=<?php echo $row['id'];?>'> ^ </a></td>
+<td><?php echo $row['order_id'] ?></td>
+<td><?php echo $row['order_item'] ?></td> 
+<td><?php echo $row['order_status'] ?></td>   
+<td><?php echo $row['order_date'] ?></td> 
+<td><?php echo $row['userid'] ?></td> 
+<td><?php echo $row['phone'] ?></td> 
+<td><?php echo $row['address'] ?></td> 
+<td><a href='editp.php?dbtnclick=updateQuery&&id=<?php echo $row['order_id'];?>'> ^ </a></td>
+<td><a href='adminPannel.php?btnclick=updateQuery&&id=<?php echo $row['order_id'];?>'> ^ </a></td>
 
 </tr>
 
 
 <?php }  ?>
- </table>
+</table>
 
- 
-    <p>
-      <input type="submit" name="btn_login" onclick="valid()" id="Submit" value="Log in on admin panel"  class="btn btn-primary btn-lg btn-block">
-    </p>
-  </form>
+
+   <p>
+     <input type="submit" name="btn_login" onclick="valid()" id="Submit" value="Log in on admin panel"  class="btn btn-primary btn-lg btn-block">
+   </p>
+ </form>
 </fieldset>
+  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-</body>
+</div>
+
+   
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bootstrap/js/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </body>
 </html>
+
 

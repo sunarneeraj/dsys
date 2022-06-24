@@ -13,27 +13,15 @@ if(!$con){
 }
 // get the post records
 
-$txtName = $_POST['txtName'];
-$txtEmail = $_POST['txtEmail'];
-$txtPhone = $_POST['txtPhone'];
+$userid = $_POST['userid'];
 $txtMessage = $_POST['txtMessage'];
+$address = $_POST['address'];
+$phone = $_POST['phone'];
 
 
-$validQ = "select fidEmail from tbl_contact where fidEmail = '$txtEmail'";
-
-$valid_sql =  mysqli_query($con, $validQ);
-
-
-
-if($valid_sql->num_rows !=0){
-	$error = "Email already exist ";
-	header('location:formInput.php?message='.$error);
-die();
-
-}
 
 // database insert SQL code
-$sql = "INSERT INTO tbl_contact (fidName, fidEmail, fidPhone,fidMessage) VALUES ('$txtName', '$txtEmail', '$txtPhone', '$txtMessage')";
+$sql = "INSERT INTO order_details (order_item, order_status,address,userid,phone) VALUES ('$txtMessage','inprocess','$address','$userid','$phone')";
 
 // insert in database 
 $rs = mysqli_query($con, $sql);
@@ -43,7 +31,7 @@ if($rs)
 {
 	$message = "Inserted successfully";
 
-	header('location:formInput.php?message='.$message);
+	header('location:formInput.php?message='.$message.'&&userid='.$userid);
 }
 }
 else

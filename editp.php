@@ -3,16 +3,17 @@
  $conn = mysqli_connect ("localhost","root","","db_connect");
 
 if(isset($_POST['btn_update'])){
-  $id= $_POST['rowid'];
+  $id= $_POST['id'];
 
-  $fname = $_POST['fidName'];
-  $email = $_POST['fidEmail'];
-  $phone = $_POST['fidPhone'];
-  $message = $_POST['fidMessage'];
-
+  $orderitem = $_POST['order_item'];
+  $orderstatus = $_POST['order_status'];
+  $address = $_POST['address'];
 
 
-  $query= "update tbl_contact set fidName ='$fname', fidEmail= '$email' , fidPhone= '$phone', fidMessage = '$message' where id= '$id'";
+
+  $query= "update order_details set  order_item = '$orderitem' , order_status= '$orderstatus', order_status = '$orderstatus' where order_id= '$id'";
+
+
   $executeQ = mysqli_query($conn,$query);
 
   if($executeQ){
@@ -49,27 +50,30 @@ if(isset($_POST['btn_update'])){
 
  <table border="1">
      <tr>
-     <th>ID</th>
-     <th>Name</th>
-     <th>Email</th>
-     <th> phone </th>
-     <th>Order</th>
+     <th>order_id</th>
+     <th>Order Name</th>
+     <th>order Status</th>
+     <th> order Date </th>
+     <th>user id </th>
+     <th>Address</th>
    
      
     </tr>
+    
 
   
 <?php
    $rid = $_GET['id'];
-   $query = "select *from tbl_contact where  id = '$rid' ";
+   $query = "select *from order_details where  order_id = '$rid' ";
   $runQ = mysqli_query($conn, $query);
   while ($row = mysqli_fetch_assoc($runQ))  { ?>
 <tr>
-<td><input type="number" name="rowid" value="<?php echo $row['id'] ?>"></td>
-<td><input type="text" name="fidName" value="<?php echo $row['fidName'] ?>"></td>
-<td><input type="text" name="fidEmail" value="<?php echo $row['fidEmail'] ?>"></td>
-<td><input type="number" name="fidPhone" value="<?php echo $row['fidPhone'] ?>"></td>
-<td><input type="text" name="fidMessage" value="<?php echo $row['fidMessage'] ?>"></td>
+<td><input type="number" name="id" value="<?php echo $row['order_id'] ?>"></td>
+<td><input type="text" name="order_item" value="<?php echo $row['order_item'] ?>"></td>
+<td><input type="text" name="order_status" value="<?php echo $row['order_status'] ?>"></td>
+<td><input type="text" name="order_date" value="<?php echo $row['order_date'] ?>"></td>
+<td><input type="text" name="userid" value="<?php echo $row['userid'] ?>"></td>
+<td><input type="text" name="address" value="<?php echo $row['address'] ?>"></td>
 <td><input type="submit" name="btn_update" value="update"></td>
 
 

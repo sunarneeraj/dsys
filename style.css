@@ -1,8 +1,9 @@
 *{
-    background-color: rgb(245, 120, 18);
+    background-color: rgb(211, 217, 218);
     text-align: center;
     text-align: center;
     text-emphasis-color: green;
+    background-image:image("goddes.jpg");
 }
 h1{
     
@@ -13,7 +14,7 @@ h1{
 
 }
 h2{
-    background-color: rgb(216, 75, 10);
+    background-color: rgb(86, 228, 51);
     text-align: center;
     font-family: cursive;
     font-style: italic;
@@ -23,16 +24,34 @@ input{
     padding:3px;
     -webkit-margin-start: 3px;
 }
-fieldset{
+
     fieldset {
         font-size:12px;
         padding:10px;
         width:250px;
         line-height:1.8;}
-      
-      label:hover {cursor:hand;}
     
-}
+
 marquee{
     direction: inherit;
 }
+
+ul {
+    border: 1px solid #555;
+  }
+  
+  li {
+    text-align: center;
+    border-bottom: 1px solid #555;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+  body{
+background-image: -moz-repeating-radial-gradient(
+
+);
+
+
+  }
